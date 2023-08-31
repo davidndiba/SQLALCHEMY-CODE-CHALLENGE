@@ -33,11 +33,34 @@ class Customer:
         new_review = Review(self, restaurant, rating)
         self._reviews.append(new_review)
 
+        
+
     def restaurants(self):
         reviewed_restaurants = set()
         for review in self._reviews:
             reviewed_restaurants.add(review.restaurant())
         return list(reviewed_restaurants)
+    
+
+    def num_reviews(self):
+        return len(self._reviews),
+
+    
+     @classmethod
+    def find_by_name(cls, name):
+        for customer in cls.all_customers:
+            if customer.name() == name:
+                return customer
+        return None
+
+    @classmethod
+    def find_all_by_given_name(cls, name):
+        matching_customers = []
+        for customer in cls.all_customers:
+            if customer.name().split()[0] == name:
+                matching_customers.append(customer)
+        return matching_customers
+
 
 
 class Restaurant:
@@ -60,6 +83,12 @@ class Restaurant:
             reviewed_customers.add(review.customer())
         return list(reviewed_customers)
 
+def average_star_rating(self):
+        total_ratings = sum(review.rating() for review in self.reviews())
+        num_reviews = len(self.reviews())
+        if num_reviews == 0:
+            return 0
+        return total_ratings / num_reviews
 
 #instance
 customer1 = Customer("George")
@@ -77,3 +106,12 @@ customer2.add_review(restaurant1, 5)
 print("Restaurant 1 Reviews:", [review.rating() for review in restaurant1.reviews()])  
 print("Restaurant 1 Customers:", [customer.name() for customer in restaurant1.customers()])  
 print("Customer 1 Reviewed Restaurants:", [restaurant.name() for restaurant in customer1.restaurants()])  
+
+print("Customer 1 Total Reviews:", customer1.num_reviews())  
+
+found_customer = Customer.find_by_name("George")
+if found_customer:
+    print("Found Customer:", found_customer.name()) 
+all_bobs = Customer.find_all_by_given_name("George")
+print("All Bobs:", [customer.name() for customer in all_bobs])  
+print("Restaurant 1 Average Star Rating:", restaurant1.average_star_rating())  
