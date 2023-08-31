@@ -31,16 +31,16 @@ customer3 = Customer("David", "Ndiba")
 customer4 = Customer("Nahashon", "Waichai")
 customer5 = Customer("Newton", "Jenga")
 
-#update
+#update customer
 customer1.set_given_name("Derrick")
 customer2.set_family_name("Ojongo")
 
-# Get customer information
+
 print(customer1.given_name())  
 print(customer2.family_name()) 
 print(customer1.full_name())   
 
-# Get all customer instances
+
 all_customers = Customer.all()
 for customer in all_customers:
     print(customer.full_name())
